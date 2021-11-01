@@ -51,7 +51,7 @@ ArduinoSTL_STDIO ArduinoSTL_Serial(ARDUINOSTL_DEFAULT_SERIAL);
 //     To maintain serial port compatibility this function
 //     automatically addes a \r when it sees a \n
 // 
-static int arduino_putchar(char c, FILE* f) {
+static int arduino_putchar(char c, FILE*) {
   Stream *uart = ArduinoSTL_Serial.getUart();
   if (c == '\n') uart->write('\r');
   return uart->write(c) == 1? 0 : 1;
@@ -62,7 +62,7 @@ static int arduino_putchar(char c, FILE* f) {
 //   must block until a character is ready. 
 //   returns: The character or -1 on a read error
 //
-static int arduino_getchar(FILE *f) {
+static int arduino_getchar(FILE *) {
   Stream *uart = ArduinoSTL_Serial.getUart();
   while (! uart->available()) { /* wait */ }
   return uart->read();
